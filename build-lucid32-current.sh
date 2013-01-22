@@ -4,6 +4,10 @@ DIR="/tmp/tmp.`date +%s`.lucid32_current"
 mktemp -d $DIR
 pushd $DIR
 
+TMP="/tmp/data"
+mktemp -d $TMP
+pushd $TMP
+
 vagrant init lucid32 http://files.vagrantup.com/lucid32.box
 vagrant up
 vagrant ssh -c "sudo apt-get update -y -q"
@@ -26,7 +30,7 @@ echo 'Vagrant::Config.run do |config|
   # Forward apache
   config.vm.forward_port 80, 8080
   config.vm.forward_port 8000, 8000
-  config.vm.share_folder "shared_folder", "/shared_folder", "/Users/vladimirtucek/shared_folder"
+  config.vm.share_folder "v-data", "/vagrant_data", "../data"
 end' > Vagrantfile.pkg
 
 vagrant package --vagrantfile Vagrantfile.pkg --output lucid32_current.box
