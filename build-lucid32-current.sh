@@ -26,6 +26,7 @@ echo 'Vagrant::Config.run do |config|
   # Forward apache
   config.vm.forward_port 80, 8080
   config.vm.forward_port 8000, 8000
+  config.vm.share_folder "shared_folder", "/shared_folder", "/Users/vladimirtucek/shared_folder"
 end' > Vagrantfile.pkg
 
 vagrant package --vagrantfile Vagrantfile.pkg --output lucid32_current.box
